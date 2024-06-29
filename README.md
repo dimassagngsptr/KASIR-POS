@@ -101,7 +101,7 @@ Ensure you have the following installed on your local machine:
      
      NODEMAILER_USER=example@gmail.com
      
-     NODEMAILER_PASS=bxihrkeowpbeerwe
+     NODEMAILER_PASS=your_mail_pass
       ```
 
 4. Running the project
