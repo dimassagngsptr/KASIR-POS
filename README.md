@@ -104,6 +104,23 @@ Ensure you have the following installed on your local machine:
      NODEMAILER_PASS=your_mail_pass
       ```
 
+4. Open your Docker Desktop
+
+   on terminal folder server
+   
+    ```sh
+       ...project/server
+    ```
+
+
+    ```sh
+      docker compose up -d
+    ```
+  
+    this command will be create database MySQL in your Docker container
+   
+
+
 4. Running the project
 
    install depedencies
