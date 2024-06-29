@@ -30,6 +30,6 @@ app.use("/transaction-products", routes.transactionProduct);
 app.use("/carts", routes.cart);
 
 app.listen(PORT, () => {
-  // db.sequelize.sync({ alter: true });
+  db.sequelize.sync({ alter: true });
   console.log(`Server running on PORT ${PORT}`);
 });

@@ -63,7 +63,6 @@ export const AddProduct = ({
          console.error("Error fetching products:", err);
       }
    };
-   console.log(getProduct);
 
    useEffect(() => {
       findProduct();

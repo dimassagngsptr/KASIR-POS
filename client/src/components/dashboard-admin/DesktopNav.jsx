@@ -18,9 +18,9 @@ export const DesktopNav = ({ currentTime, main }) => {
             fontSize="2xl"
             letterSpacing="tighter"
             color="orange">
-            كا
+               Ka
             <Text as={"span"} color="black">
-               شير
+               sir
             </Text>
          </Text>
          {main == 3 ? (
