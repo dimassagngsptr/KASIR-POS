@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       isVerified: DataTypes.BOOLEAN,
       isDisabled:{
         type :DataTypes.BOOLEAN,
-        defaultValue: 0
+        defaultValue: false
       }
     },
     {

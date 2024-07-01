@@ -63,7 +63,7 @@ export const Tables = ({
   };
   const offset = currentPage * itemsPerPage;
   const paginatedItems = data?.slice(offset, offset + itemsPerPage);
-  console.log(data);
+  console.log(filterSubCategory);
 
   useEffect(() => {
     find();

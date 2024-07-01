@@ -1,42 +1,56 @@
-import {  Flex, VStack, Text } from "@chakra-ui/react";
+import { Flex, VStack, Text } from "@chakra-ui/react";
 // import { Login } from "../components/landingpage/Login";
 import { TabsLogin } from "../components/landingpage/Tabs.Jsx";
 import { AiOutlineLogin } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 export const LandingPage = () => {
-   return (
+  return (
+    <VStack
+      h={"100vh"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      gap={"5%"}
+    >
       <VStack
-         h={"100vh"}
-         justifyContent={"center"}
-         alignItems={"center"}
-         gap={"5%"}>
-         <VStack
-            justifyContent={"center"}
-            w={{ base: "60%", sm: "50%", md: "80%", lg: "70%", xl: "50%" }}
+        justifyContent={"center"}
+        w={{ base: "60%", sm: "50%", md: "80%", lg: "70%", xl: "50%" }}
+        alignItems={"center"}
+        p={{ base: "15px 0", lg: "none" }}
+      >
+        <Flex
+          justifyContent={"center"}
+          alignItems={"center"}
+          gap={"20px"}
+          flexDir={"column"}
+        >
+          <Flex
+            w={"100%"}
             alignItems={"center"}
-            p={{ base: "15px 0", lg: "none" }}>
-            <Flex
-               justifyContent={"center"}
-               alignItems={"center"}
-               gap={"20px"}
-               flexDir={"column"}>
-               <Flex
-                  w={"100%"}
-                  alignItems={"center"}
-                  gap={"20px"}
-                  justifyContent={"center"}>
-                  <AiOutlineLogin size={"20px"} />
-                  <Text
-                     fontSize={{ base: "14px", md: "16px", lg: "20px" }}
-                     fontWeight={"bold"}
-                     fontFamily={"sans-serif"}>
-                     Login Account
-                  </Text>
-               </Flex>
-               <TabsLogin />
-            </Flex>
-           
-         </VStack>
+            gap={"20px"}
+            justifyContent={"center"}
+          >
+            <AiOutlineLogin size={"20px"} />
+            <Text
+              fontSize={{ base: "14px", md: "16px", lg: "20px" }}
+              fontWeight={"bold"}
+              fontFamily={"sans-serif"}
+            >
+              Login Account
+            </Text>
+          </Flex>
+          <TabsLogin />
+        </Flex>
+        <Text fontSize={{ base: "12px", md: "12px", lg: "14px" }}>
+          Don't have an account for your restaurant yet?
+        </Text>
+        <Text fontSize={{ base: "12px", md: "12px", lg: "14px" }}>
+          Contact us at{" "}
+          <a href="http://linkedin.com/in/dimasagengsaputro/" target="_blank">
+            linkedin
+          </a>
+        </Text>
       </VStack>
-   );
+    </VStack>
+  );
 };

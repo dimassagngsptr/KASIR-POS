@@ -156,7 +156,7 @@ module.exports = {
 
       const tempResult = tempCompile({
         email: email,
-        link: `http://localhost:3000/reset-password/${email}`,
+        link: `${process.env.WEB_URL}/reset-password/${email}`,
       });
 
       await transporter.sendMail({

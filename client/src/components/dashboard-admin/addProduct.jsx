@@ -3,7 +3,6 @@
 import { Stack, HStack, useToast } from "@chakra-ui/react";
 import { Tables } from "./Tables";
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { Formik, Form } from "formik";
 import { FromProducts } from "./FormAddProducts";
 import { useLocation } from "react-router-dom";
@@ -27,7 +26,7 @@ export const AddProduct = ({
     stock_quantity: null,
     CategoryId: null,
     SubCategoryId: null,
-    AdminId: 2,
+    AdminId: 1,
   });
   const [image, setImage] = useState(null);
   const handleImage = (e) => {

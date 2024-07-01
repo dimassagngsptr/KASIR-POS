@@ -1,52 +1,55 @@
-const {Admin, Cashier } = require("../models");
+const { Admin, Cashier } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const transporter =require ("../middleware/transporter")
-const fs = require('fs')
-const Handlebars = require('handlebars');
+const transporter = require("../middleware/transporter");
+const fs = require("fs");
+const Handlebars = require("handlebars");
 
 module.exports = {
   register: async (req, res) => {
     try {
-        const {  fullname, email, password } = req.body;
-     
-        const emailCheck = await Cashier.findOne({
-          where: {
-            email: email,
-          },
-        });
-    
-        if (emailCheck) {
-          return res.status(400).send("Email already exists");
-        }
-    
-        const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash(password, salt);
-    
-        const newCashier = await Cashier.create({
-          fullname,
-          email,
-          password: hashPassword,
-        });
-        const data = fs.readFileSync("./template.html", "utf-8");
-        const tempCompile = await Handlebars.compile(data);
-        const tempResult = tempCompile({
-            fullname:fullname,
-             link: `http://localhost:5173/verified/`
-           
-          });
-        await transporter.sendMail({
-          from: "agnaar218@gmail.com",
-          to: email,
-          subject: "email confirmation",
-          html: tempResult,
-        });
-    
-        res.status(200).send({ message: "Registration success", cashierId: newCashier.id });
-      } catch (error) {
-        console.error(error);
-        res.status(400).send({ message: "Registration failed", error: error.message });
+      const { fullname, email, password } = req.body;
+
+      const emailCheck = await Cashier.findOne({
+        where: {
+          email: email,
+        },
+      });
+
+      if (emailCheck) {
+        return res.status(400).send("Email already exists");
       }
+
+      const salt = await bcrypt.genSalt(10);
+      const hashPassword = await bcrypt.hash(password, salt);
+
+      const newCashier = await Cashier.create({
+        fullname,
+        email,
+        password: hashPassword,
+      });
+      const data = fs.readFileSync("./template.html", "utf-8");
+      const tempCompile = await Handlebars.compile(data);
+      const tempResult = tempCompile({
+        fullname: fullname,
+        link: `${process.env.WEB_URL}/verified/`,
+      });
+      await transporter.sendMail({
+        from: "agnaar218@gmail.com",
+        to: email,
+        subject: "email confirmation",
+        html: tempResult,
+      });
+
+      res
+        .status(200)
+        .send({ message: "Registration success", cashierId: newCashier.id });
+    } catch (error) {
+      console.error(error);
+      res
+        .status(400)
+        .send({ message: "Registration failed", error: error.message });
+    }
   },
   login: async (req, res) => {
     try {
@@ -55,7 +58,7 @@ module.exports = {
       const isCashierExist = await Cashier.findOne({
         where: {
           email,
-          isDisabled: false
+          isDisabled: false,
         },
       });
 
@@ -122,28 +125,30 @@ module.exports = {
   isVerified: async (req, res) => {
     try {
       const { isVerified } = req.body;
-  
-      if (typeof isVerified !== 'boolean') {
-        return res.status(400).json({ error: 'Invalid input for isVerified. Must be a boolean.' });
+
+      if (typeof isVerified !== "boolean") {
+        return res
+          .status(400)
+          .json({ error: "Invalid input for isVerified. Must be a boolean." });
       }
-  
+
       const [updatedRowsCount] = await Cashier.update(
         { isVerified },
         { where: { id: req.params.id } }
       );
-  
+
       if (updatedRowsCount === 0) {
-        return res.status(404).json({ error: 'Cashier not found.' });
+        return res.status(404).json({ error: "Cashier not found." });
       }
-  
+
       // Successful update
-      res.status(200).json({ message: 'Update successful', updatedRowsCount });
+      res.status(200).json({ message: "Update successful", updatedRowsCount });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: "Internal server error" });
     }
   },
-  
+
   isDisabled: async (req, res) => {
     const { id } = req.params;
 
@@ -175,7 +180,7 @@ module.exports = {
     }
   },
   delete: async (req, res) => {
-    const id = req.params.id; 
+    const id = req.params.id;
     try {
       const cashier = await Cashier.findByPk(id);
 
@@ -195,7 +200,7 @@ module.exports = {
       const cashierId = req.cashier.id;
 
       if (!req.file) {
-        return res.status(400).json({ message: 'No file uploaded' });
+        return res.status(400).json({ message: "No file uploaded" });
       }
 
       const filename = req.file.filename;
@@ -203,10 +208,10 @@ module.exports = {
         { profilePhoto: filename },
         { where: { id: cashierId } }
       );
-      res.status(200).json({ message: 'Profile photo uploaded successfully' });
+      res.status(200).json({ message: "Profile photo uploaded successfully" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: "Internal server error" });
     }
   },
 };
