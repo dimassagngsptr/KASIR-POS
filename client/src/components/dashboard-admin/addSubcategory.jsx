@@ -8,6 +8,7 @@ import axios from "axios";
 import { Form, Formik } from "formik";
 import { FormAddSubCategory } from "./FromAddSubcategory";
 import { SearchSubCategory } from "./SearchSubCategory";
+import { api } from "../../configs/api";
 
 export const AddSubCategory = ({
   handleEdit,
@@ -28,8 +29,8 @@ export const AddSubCategory = ({
 
   const findSubCategories = async () => {
     try {
-      const subCategories = await axios.get(
-        `http://localhost:2000/subcategories?name=${searchSubCategory}`
+      const subCategories = await api.get(
+        `/subcategories?name=${searchSubCategory}`
       );
       const filterSubCategories = subCategories.data.filter(
         (subCategory) => subCategory.isDeleted === false
@@ -43,7 +44,7 @@ export const AddSubCategory = ({
   };
   const handleSubmit = async (data) => {
     try {
-      await axios.post(`http://localhost:2000/subcategories/`, data, {
+      await api.post(`/subcategories/`, data, {
         headers: { Authorization: `Bearer ${tokenAdmin}` },
       });
       findSubCategories();
@@ -70,10 +71,7 @@ export const AddSubCategory = ({
   const editSubCategory = async (editValues) => {
     editValues.id = valueId;
     try {
-      await axios.patch(
-        `http://localhost:2000/subcategories/${valueId}`,
-        editValues
-      );
+      await api.patch(`/subcategories/${valueId}`, editValues);
       findSubCategories();
       toast({
         title: "Success",
@@ -97,9 +95,7 @@ export const AddSubCategory = ({
   };
   const deletedSubCategory = async () => {
     try {
-      await axios.patch(
-        `http://localhost:2000/subcategories/delete/${valueId}`
-      );
+      await api.patch(`/subcategories/delete/${valueId}`);
       findSubCategories();
       toast({
         title: "Success",

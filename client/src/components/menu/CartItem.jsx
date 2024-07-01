@@ -41,7 +41,7 @@ function CartItem({ cart, handleDecrement, handleIncrement, handleDelete }) {
             >
               <Stack direction="row">
                 <Image
-                  src={`http://localhost:2000/${item.Product.image}`}
+                  src={`${import.meta.env.VITE_API_URL}/${item.Product.image}`}
                   boxSize="80px"
                   objectFit="cover"
                   rounded="xl"

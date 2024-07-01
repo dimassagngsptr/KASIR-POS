@@ -4,6 +4,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import axios from "axios";
+import { api } from "../configs/api";
 
 function SuccessTransaction() {
   const [transaction, setTransaction] = useState(null);
@@ -22,9 +23,7 @@ function SuccessTransaction() {
 
   const getData = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:2000/transactions/${id}`
-      );
+      const response = await api.get(`/transactions/${id}`);
       setTransaction(response?.data);
     } catch (err) {
       console.log(err);

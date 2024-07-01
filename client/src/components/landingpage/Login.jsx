@@ -7,49 +7,49 @@ import {
   Flex,
   Link,
   Button,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-
+import { api } from "../../configs/api";
 
 export const LoginAdmin = () => {
-   const navigate = useNavigate();
-    const toast = useToast()
+  const navigate = useNavigate();
+  const toast = useToast();
   const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email format").required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
     password: Yup.string().required("Password is required"),
   });
-  
-  const handleSubmit = async (values) => { 
+
+  const handleSubmit = async (values) => {
     try {
-      const response = await axios.post('http://localhost:2000/admin/login', values);
-      console.log(response)
+      const response = await api.post("/admin/login", values);
+      console.log(response);
       if (!response.data) {
-        console.error( response.data);
-         toast({
-             title: "Error",
-             description: `${response.data.message}`,
-             status: "error",
-             duration: 3000,
-             position: "top-left",
-             isClosable: true,
-          });
-      
-      } else {
-         console.log('Login successful');
-        localStorage.setItem("tokenAdmin", response.data.token);
-         navigate("/dashboard-admin")
+        console.error(response.data);
         toast({
-            title: "success",
-            description: 'Login success',
-            status: "success",
-            duration: 3000,
-            position: "top-left",
-            isClosable: true, 
-        })
+          title: "Error",
+          description: `${response.data.message}`,
+          status: "error",
+          duration: 3000,
+          position: "top-left",
+          isClosable: true,
+        });
+      } else {
+        console.log("Login successful");
+        localStorage.setItem("tokenAdmin", response.data.token);
+        navigate("/dashboard-admin");
+        toast({
+          title: "success",
+          description: "Login success",
+          status: "success",
+          duration: 3000,
+          position: "top-left",
+          isClosable: true,
+        });
       }
     } catch (error) {
       console.error(error.response.data);
@@ -60,8 +60,8 @@ export const LoginAdmin = () => {
         duration: 3000,
         position: "top-left",
         isClosable: true,
-     });
-    } 
+      });
+    }
   };
 
   return (
@@ -107,7 +107,11 @@ export const LoginAdmin = () => {
                     type="password"
                     focusBorderColor="orange.400"
                   />
-                  <ErrorMessage name="password" component="div" color="red.500" />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    color="red.500"
+                  />
                 </FormControl>
               )}
             </Field>
@@ -122,11 +126,10 @@ export const LoginAdmin = () => {
             </Flex>
             <Button
               colorScheme="orange"
-              w={{ base: "50%", sm:"70%", md: "50%", lg: "50%" }}
+              w={{ base: "50%", sm: "70%", md: "50%", lg: "50%" }}
               type="submit"
-              
             >
-              Login 
+              Login
             </Button>
           </VStack>
         </Form>

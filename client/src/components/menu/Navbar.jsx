@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { api } from "../../configs/api";
 
 function Navbar({ setCategory, categoryId, route, getProducts }) {
   const [categories, setCategories] = useState([]);
@@ -54,11 +55,9 @@ function Navbar({ setCategory, categoryId, route, getProducts }) {
 
   const getData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:2000/categories?name="
-      );
+      const response = await api.get("/categories?name=");
       setCategories(response?.data);
-      console.log(response);
+      // console.log(response);
     } catch (err) {
       console.log(err);
     }

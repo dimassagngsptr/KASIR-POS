@@ -2,8 +2,8 @@ import { Stack, Button } from "@chakra-ui/react";
 import axios from "axios";
 import { TablesCashier } from "./TablesCashier";
 import { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { api } from "../../configs/api";
 
 export const ListCashier = () => {
   const [cashiers, setCashiers] = useState([]);
@@ -12,11 +12,14 @@ export const ListCashier = () => {
   useEffect(() => {
     const fetchCashiers = async () => {
       try {
-        const response = await axios.get("http://localhost:2000/cashier");
+        const response = await api.get("/cashier");
         if (Array.isArray(response.data.cashier)) {
           setCashiers(response.data.cashier);
         } else {
-          console.error("Data from API is not an array:", response.data.cashier);
+          console.error(
+            "Data from API is not an array:",
+            response.data.cashier
+          );
         }
       } catch (error) {
         console.error("Error fetching cashiers:", error);
@@ -39,11 +42,15 @@ export const ListCashier = () => {
       p={"50px 3%"}
       m={"0 30px 0 0"}
     >
-     
-      <Button onClick={handleAddCashier}   bg={"orange"} _hover={{ bg: "orange.300" }} w={"13%"}>
+      <Button
+        onClick={handleAddCashier}
+        bg={"orange"}
+        _hover={{ bg: "orange.300" }}
+        w={"13%"}
+      >
         Add Cashier
       </Button>
-    
+
       <TablesCashier cashiers={cashiers} />
     </Stack>
   );

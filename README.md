@@ -143,6 +143,65 @@ The server will start on port 3000 by default. You can use Postman to interact w
 
 To use this project, follow the instructions below for understanding the project structure and how to use the provided API documentation.
 
+
+## Screenshots
+
+
+<table>
+  <tr>
+    <td>Login Page</td>
+    <td>Home Page</td>
+  </tr>
+  <tr>
+    <td><img src="/client/public/docs/screenshots/register-page 1 (10).png"/></td>
+    <td><img src="/client/public/docs/screenshots/register-page 1 (14).png"/></td>
+  </tr>
+  <tr>
+    <td>Checkout</td>
+    <td>Sales Report</td>
+  </tr>
+  <tr>
+    <td><img src="/client/public/docs/screenshots/register-page 1 (15).png"
+ /></td>
+    <td><img src="/client/public/docs/screenshots/register-page 1 (16).png" /></td>
+  </tr>
+  <tr>
+    <td>List Cashier</td>
+    <td>Category Products</td>
+  </tr>
+  <tr>
+    <td><img src="/client/public/docs/screenshots/register-page 1 (11).png" /></td>
+    <td><img src="/client/public/docs/screenshots/register-page 1 (12).png" /></td>
+  </tr>
+  <tr>
+    <td>Sub Category Products</td>
+    <!-- <td></td> -->
+  </tr>
+  <tr>
+    <td><img src="/client/public/docs/screenshots/register-page 1 (13).png" /></td>
+    <!-- <td><img src="https://github.com/dimassagngsptr/blanja-kelompok-1/blob/df3f76ec9cd4de47e30c78fabc5b9f54fcf01a98/apps/web/src/assets/screenshot/checkout.png" /></td> -->
+  </tr>
+  <!-- <tr>
+    <td>Profile Customer</td>
+    <td>add shipping address</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/dimassagngsptr/blanja-kelompok-1/blob/df3f76ec9cd4de47e30c78fabc5b9f54fcf01a98/apps/web/src/assets/screenshot/profile%20costumer.png" /></td>
+    <td><img src="https://github.com/dimassagngsptr/blanja-kelompok-1/blob/df3f76ec9cd4de47e30c78fabc5b9f54fcf01a98/apps/web/src/assets/screenshot/add%20shipping%20address.png" /></td>
+  </tr>
+  <tr>
+    <td>My order</td>
+    <td>Filter Product</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/dimassagngsptr/blanja-kelompok-1/blob/df3f76ec9cd4de47e30c78fabc5b9f54fcf01a98/apps/web/src/assets/screenshot/my%20order.png" /></td>
+    <td>
+    <img src="./apps/web/src/assets/screenshot/filter-products.png" />
+    </td> -->
+  </tr>
+
+</table>
+
 ### Project Structure Front End
 
 ```

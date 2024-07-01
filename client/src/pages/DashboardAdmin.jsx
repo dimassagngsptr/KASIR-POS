@@ -16,192 +16,191 @@ import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { LuListPlus } from "react-icons/lu";
 import { AddSubCategory } from "../components/dashboard-admin/addSubcategory";
 import { AddProduct } from "../components/dashboard-admin/addProduct";
-import { ListCashier } from "../components/dashboard-admin/listCashier"
+import { ListCashier } from "../components/dashboard-admin/listCashier";
 import { Trash } from "../components/dashboard-admin/Trash";
 import { Reports } from "../components/dashboard-admin/Reports";
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
-
+import { api } from "../configs/api";
 
 export const DasboardAdminPages = () => {
-   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
-   const { isOpen, onOpen, onClose } = useDisclosure();
-   const [valueId, setId] = useState();
-   const [filterCategory, setFilteredCategories] = useState();
-   const [filterSubCategory, setFilteredSubCategories] = useState();
-   const [category, setCategory] = useState([]);
-   const [product, setProduct] = useState([]);
-   const location = useLocation();
-   const queryParams = new URLSearchParams(location.search);
-   const categoryId = queryParams.get("category");
-   const name = queryParams.get("name");
-   const sort = queryParams.get("sort");
-     const [currentPage, setCurrentPage] = useState(1);
-     const itemsPerPage = 10;
+  const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [valueId, setId] = useState();
+  const [filterCategory, setFilteredCategories] = useState();
+  const [filterSubCategory, setFilteredSubCategories] = useState();
+  const [category, setCategory] = useState([]);
+  const [product, setProduct] = useState([]);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryId = queryParams.get("category");
+  const name = queryParams.get("name");
+  const sort = queryParams.get("sort");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-   const getProducts = async () => {
-      let url = `http://localhost:2000/product?page=${currentPage}&limit=${itemsPerPage}`;
-      if (categoryId) {
-         url += `${url.includes("?") ? "&" : "?"}category=${categoryId}`;
-      }
-      if (name) {
-         url += `${url.includes("?") ? "&" : "?"}name=${name}`;
-      }
-      if (sort) {
-         url += `${url.includes("?") ? "&" : "?"}sort=${sort}`;
-      }
+  const getProducts = async () => {
+    let url = `/product?page=${currentPage}&limit=${itemsPerPage}`;
+    if (categoryId) {
+      url += `${url.includes("?") ? "&" : "?"}category=${categoryId}`;
+    }
+    if (name) {
+      url += `${url.includes("?") ? "&" : "?"}name=${name}`;
+    }
+    if (sort) {
+      url += `${url.includes("?") ? "&" : "?"}sort=${sort}`;
+    }
 
-      try {
-         const response = await axios.get(url);
-         setProduct(response?.data);
-      } catch (err) {
-         console.error("Error fetching products:", err);
-      }
-   };
+    try {
+      const response = await api.get(url);
+      setProduct(response?.data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    }
+  };
 
-   const fetchCategory = async () => {
-      try {
-         const fetchCategory = await axios.get(
-            `http://localhost:2000/categories?name=`
-         );
-         const filteredCategories = fetchCategory.data.filter(
-            (category) => category.isDeleted === false
-         );
-         setFilteredCategories(filteredCategories);
-      } catch (error) {
-         console.log(error);
-      }
-   };
-   const fetchSubCategory = async () => {
-      try {
-         const fetchSubCategory = await axios.get(
-            `http://localhost:2000/subcategories?name=`
-         );
-         const filteredSubCategories = fetchSubCategory?.data.filter(
-            (subCategory) => subCategory.isDeleted === false
-         );
-         setFilteredSubCategories(filteredSubCategories);
-      } catch (error) {
-         console.log(error);
-      }
-   };
-   const handleEdit = (valuesId) => {
-      setId(valuesId);
-   };
+  const fetchCategory = async () => {
+    try {
+      const fetchCategory = await api.get(`/categories?name=`);
+      const filteredCategories = fetchCategory.data.filter(
+        (category) => category.isDeleted === false
+      );
+      setFilteredCategories(filteredCategories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchSubCategory = async () => {
+    try {
+      const fetchSubCategory = await api.get(`/subcategories?name=`);
+      const filteredSubCategories = fetchSubCategory?.data.filter(
+        (subCategory) => subCategory.isDeleted === false
+      );
+      setFilteredSubCategories(filteredSubCategories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleEdit = (valuesId) => {
+    setId(valuesId);
+  };
 
-   const sidebar = [
-      { name: "Product", icon: <PiCallBellLight size={"25px"} /> },
-      { name: "Reports", icon: <AiOutlineStock size={"25px"} /> },
-      { name: "Cashier", icon: <PiUsersThree size={"25px"} /> },
-      { name: "Category", icon: <HiOutlineSquaresPlus size={"25px"} /> },
-      { name: "Subcategory", icon: <LuListPlus size={"25px"} /> },
-      { name: "Product", icon: <AiOutlinePlusCircle size={"25px"} /> },
-      { name: "Trash", icon: <FaRegTrashAlt size={"25px"} /> },
-   ];
-   const [main, setMain] = useState(0);
-   const handleClick = (sidebarId) => {
-      setMain(sidebarId);
-      onClose();
-   };
-   useEffect(() => {
-      getProducts();
-      fetchCategory();
-      fetchSubCategory();
-   }, []);
+  const sidebar = [
+    { name: "Product", icon: <PiCallBellLight size={"25px"} /> },
+    { name: "Reports", icon: <AiOutlineStock size={"25px"} /> },
+    { name: "Cashier", icon: <PiUsersThree size={"25px"} /> },
+    { name: "Category", icon: <HiOutlineSquaresPlus size={"25px"} /> },
+    { name: "Subcategory", icon: <LuListPlus size={"25px"} /> },
+    { name: "Product", icon: <AiOutlinePlusCircle size={"25px"} /> },
+    { name: "Trash", icon: <FaRegTrashAlt size={"25px"} /> },
+  ];
+  const [main, setMain] = useState(0);
+  const handleClick = (sidebarId) => {
+    setMain(sidebarId);
+    onClose();
+  };
+  useEffect(() => {
+    getProducts();
+    fetchCategory();
+    fetchSubCategory();
+  }, []);
 
-   return (
-      <>
-         {isSmallerThan768 ? (
-            <Box>
-               <MobileGrid
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  onOpen={onOpen}
-                  handleClick={handleClick}
-                  sidebar={sidebar}
-                  main={main}
-                  fetchCategory={fetchCategory}
-                  fetchSubCategory={fetchSubCategory}
-                  setMain={setMain}
-                  handleEdit={handleEdit}
-                  valueId={valueId}
-                  filterCategory={filterCategory}
-                  filterSubCategory={filterSubCategory}
-               />
-            </Box>
-         ) : (
-            <Grid
-               gap={"3%"}
-               templateAreas={`"nav header header "
+  return (
+    <>
+      {isSmallerThan768 ? (
+        <Box>
+          <MobileGrid
+            isOpen={isOpen}
+            onClose={onClose}
+            onOpen={onOpen}
+            handleClick={handleClick}
+            sidebar={sidebar}
+            main={main}
+            fetchCategory={fetchCategory}
+            fetchSubCategory={fetchSubCategory}
+            setMain={setMain}
+            handleEdit={handleEdit}
+            valueId={valueId}
+            filterCategory={filterCategory}
+            filterSubCategory={filterSubCategory}
+          />
+        </Box>
+      ) : (
+        <Grid
+          gap={"3%"}
+          templateAreas={`"nav header header "
                   "nav main main "
                   "nav main main"`}
-               gridTemplateRows={"70px 1fr 30px"}
-               gridTemplateColumns={"100px 1fr 200px"}
-               h="1000px"
-               bg={"gray.100"}
-               color="blackAlpha.700">
-               <GridItem
-                  area={"header"}
-                  position={"sticky"}
-                  top={"0"}
-                  bg={"gray.100"}
-                  zIndex={"1"}>
-                  <Navbar main={main} />
-               </GridItem>
-               <GridItem
-                  bg={"white"}
-                  textAlign={"center"}
-                  area={"nav"}
-                  w={{ base: "12.5%", lg: "9.5%", xl: "8%" }}
-                  h={"full"}
-                  position={"fixed"}
-                  top={"0"}>
-                  <SidebarDesk
-                     sidebar={sidebar}
-                     handleClick={handleClick}
-                     main={main}
-                  />
-               </GridItem>
-               <GridItem area={"main"}>
-                  {main == 0 ? (
-                     <ProductMenuAdmin
-                        product={product}
-                        getProducts={getProducts}
-                        category={category}
-                        setCategory={setCategory}
-                        categoryId={categoryId}
-                     />
-                  ) : main == 1 ? (
-                     <Reports />
-                  ) : main == 2 ? (
-                     <ListCashier />
-                  ) : main == 3 ? (
-                     <AddCategory handleEdit={handleEdit} valueId={valueId} />
-                  ) : main == 4 ? (
-                     <AddSubCategory
-                        fetchCategory={fetchCategory}
-                        handleEdit={handleEdit}
-                        valueId={valueId}
-                        filterCategory={filterCategory}
-                        filterSubCategory={filterSubCategory}
-                     />
-                  ) : main == 5 ? (
-                     <AddProduct
-                        fetchCategory={fetchCategory}
-                        fetchSubCategory={fetchSubCategory}
-                        setMain={setMain}
-                        handleEdit={handleEdit}
-                        valueId={valueId}
-                        filterCategory={filterCategory}
-                        filterSubCategory={filterSubCategory}
-                        product={product}
-                     />
-                  ) : (
-                     <Trash />
-                  )}
-               </GridItem>
-            </Grid>
-         )}
-      </>
-   );
+          gridTemplateRows={"70px 1fr 30px"}
+          gridTemplateColumns={"100px 1fr 200px"}
+          h="1000px"
+          bg={"gray.100"}
+          color="blackAlpha.700"
+        >
+          <GridItem
+            area={"header"}
+            position={"sticky"}
+            top={"0"}
+            bg={"gray.100"}
+            zIndex={"1"}
+          >
+            <Navbar main={main} />
+          </GridItem>
+          <GridItem
+            bg={"white"}
+            textAlign={"center"}
+            area={"nav"}
+            w={{ base: "12.5%", lg: "9.5%", xl: "8%" }}
+            h={"full"}
+            position={"fixed"}
+            top={"0"}
+          >
+            <SidebarDesk
+              sidebar={sidebar}
+              handleClick={handleClick}
+              main={main}
+            />
+          </GridItem>
+          <GridItem area={"main"}>
+            {main == 0 ? (
+              <ProductMenuAdmin
+                product={product}
+                getProducts={getProducts}
+                category={category}
+                setCategory={setCategory}
+                categoryId={categoryId}
+              />
+            ) : main == 1 ? (
+              <Reports />
+            ) : main == 2 ? (
+              <ListCashier />
+            ) : main == 3 ? (
+              <AddCategory handleEdit={handleEdit} valueId={valueId} />
+            ) : main == 4 ? (
+              <AddSubCategory
+                fetchCategory={fetchCategory}
+                handleEdit={handleEdit}
+                valueId={valueId}
+                filterCategory={filterCategory}
+                filterSubCategory={filterSubCategory}
+              />
+            ) : main == 5 ? (
+              <AddProduct
+                fetchCategory={fetchCategory}
+                fetchSubCategory={fetchSubCategory}
+                setMain={setMain}
+                handleEdit={handleEdit}
+                valueId={valueId}
+                filterCategory={filterCategory}
+                filterSubCategory={filterSubCategory}
+                product={product}
+              />
+            ) : (
+              <Trash />
+            )}
+          </GridItem>
+        </Grid>
+      )}
+    </>
+  );
 };

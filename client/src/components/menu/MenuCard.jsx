@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { api } from "../../configs/api";
 
 function MenuCard({
   product,
@@ -18,7 +19,7 @@ function MenuCard({
   getCarts,
   handlePageChange,
   currentPage,
-  route
+  route,
 }) {
   const navigate = useNavigate();
 
@@ -32,13 +33,14 @@ function MenuCard({
   const handleClick = async (id) => {
     const data = { ProductId: id, CashierId: 1 };
     try {
-      await axios.post("http://localhost:2000/carts/", data);
+      await api.post("/carts/", data);
       getProducts();
       getCarts();
     } catch (err) {
       console.log(err);
     }
   };
+  console.log(filteredProducts);
 
   const handleSort = (value) => {
     const queryParams = [];
@@ -115,7 +117,7 @@ function MenuCard({
                     height="200px"
                     objectFit="cover"
                     rounded="xl"
-                    src={`http://localhost:2000/${item.image}`}
+                    src={`${import.meta.env.VITE_API_URL}/${item.image}`}
                   />
 
                   <Text fontWeight="bold">{item.name}</Text>

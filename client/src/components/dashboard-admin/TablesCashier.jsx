@@ -19,6 +19,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
+import { api } from "../../configs/api";
 
 export const TablesCashier = () => {
   const [cashiers, setCashiers] = useState([]);
@@ -27,7 +28,7 @@ export const TablesCashier = () => {
   useEffect(() => {
     const fetchCashiers = async () => {
       try {
-        const response = await axios.get("http://localhost:2000/cashier");
+        const response = await api.get("/cashier");
         if (Array.isArray(response.data.cashier)) {
           setCashiers(response.data.cashier);
         } else {
@@ -51,7 +52,7 @@ export const TablesCashier = () => {
       );
 
       // Send request to update database
-      await axios.put(`http://localhost:2000/cashier/disabled/${id}`, {
+      await api.put(`/cashier/disabled/${id}`, {
         disable: newDisableValue,
       });
     } catch (error) {
@@ -59,7 +60,9 @@ export const TablesCashier = () => {
       // Revert to the previous state if an error occurs
       setCashiers((prevCashiers) =>
         prevCashiers.map((cashier) =>
-          cashier.id === id ? { ...cashier, disable: !newDisableValue } : cashier
+          cashier.id === id
+            ? { ...cashier, disable: !newDisableValue }
+            : cashier
         )
       );
     }
@@ -73,7 +76,7 @@ export const TablesCashier = () => {
     if (deleteConfirmation) {
       try {
         // Send request to delete cashier
-        await axios.delete(`http://localhost:2000/cashier/${deleteConfirmation}`);
+        await api.delete(`/cashier/${deleteConfirmation}`);
 
         // Remove deleted cashier from the state
         setCashiers((prevCashiers) =>
@@ -156,5 +159,3 @@ export const TablesCashier = () => {
     </TableContainer>
   );
 };
-
-

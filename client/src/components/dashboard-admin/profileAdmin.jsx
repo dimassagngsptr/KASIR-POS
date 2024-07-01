@@ -1,10 +1,11 @@
-import { Box, Text, Button,  } from '@chakra-ui/react';
-import { FaUserCircle } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Box, Text, Button } from "@chakra-ui/react";
+import { FaUserCircle } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { api } from "../../configs/api";
 
 const UserProfile = () => {
-  const tokenAdmin = localStorage.getItem('tokenAdmin');
+  const tokenAdmin = localStorage.getItem("tokenAdmin");
   const [adminData, setAdminData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,10 +14,10 @@ const UserProfile = () => {
     const fetchData = async () => {
       try {
         if (!tokenAdmin) {
-          throw new Error('Token Admin tidak ditemukan.');
+          throw new Error("Token Admin tidak ditemukan.");
         }
 
-        const response = await axios.get('http://localhost:2000/admin/keep-login', {
+        const response = await api.get("/admin/keep-login", {
           headers: {
             Authorization: `Bearer ${tokenAdmin}`,
           },
@@ -31,7 +32,7 @@ const UserProfile = () => {
     };
 
     fetchData();
-  }, [tokenAdmin]); 
+  }, [tokenAdmin]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -40,8 +41,6 @@ const UserProfile = () => {
   if (error) {
     return <p>Error: {error}</p>;
   }
-
-  
 
   return (
     <Box
@@ -56,9 +55,9 @@ const UserProfile = () => {
       boxShadow="0 10px 20px -10px rgba(0,0,0,.75)"
       display="flex"
       flexDirection="column"
-      alignItems="center" 
+      alignItems="center"
     >
-      <FaUserCircle size="150px" color='gray' />
+      <FaUserCircle size="150px" color="gray" />
       <Text fontSize="25px" fontWeight="bold" margin="27px 0 0 0">
         Admin
       </Text>
@@ -85,8 +84,3 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
-
-
-
-
-

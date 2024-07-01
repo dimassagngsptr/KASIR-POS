@@ -7,11 +7,12 @@ import {
   Flex,
   Link,
   Button,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../configs/api";
 
 export const RegisterCashier = () => {
   const navigate = useNavigate();
@@ -19,13 +20,15 @@ export const RegisterCashier = () => {
 
   const validationSchema = Yup.object({
     fullname: Yup.string().required("Fullname is required"),
-    email: Yup.string().email("Invalid email format").required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
     password: Yup.string().required("Password is required"),
   });
 
   const handleSubmit = async (values) => {
     try {
-      const response = await axios.post('http://localhost:2000/cashier', values);
+      const response = await api.post("/cashier", values);
       console.log(response);
       if (!response.data) {
         console.error(response.data);
@@ -38,11 +41,11 @@ export const RegisterCashier = () => {
           isClosable: true,
         });
       } else {
-        console.log('Registration successful');
+        console.log("Registration successful");
         navigate("/dashboard-admin");
         toast({
           title: "Success",
-          description: 'Registration success',
+          description: "Registration success",
           status: "success",
           duration: 3000,
           position: "top-left",
@@ -93,9 +96,7 @@ export const RegisterCashier = () => {
           </Field>
           <Field name="email">
             {({ field, form }) => (
-              <FormControl
-                isInvalid={form.errors.email && form.touched.email}
-              >
+              <FormControl isInvalid={form.errors.email && form.touched.email}>
                 <FormLabel>Email</FormLabel>
                 <Input
                   {...field}
@@ -136,7 +137,7 @@ export const RegisterCashier = () => {
           </Flex>
           <Button
             colorScheme="orange"
-            w={{ base: "50%", sm:"70%", md: "50%", lg: "50%" }}
+            w={{ base: "50%", sm: "70%", md: "50%", lg: "50%" }}
             type="submit"
           >
             Register

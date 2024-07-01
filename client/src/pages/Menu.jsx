@@ -5,6 +5,7 @@ import Sidebar from "../components/menu/Sidebar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { api } from "../configs/api";
 
 export const Menu = () => {
   const [product, setProduct] = useState([]);
@@ -20,7 +21,7 @@ export const Menu = () => {
   const sort = queryParams.get("sort");
 
   const getProducts = async () => {
-    let url = `http://localhost:2000/product?page=${currentPage}&limit=${itemsPerPage}`;
+    let url = `/product?page=${currentPage}&limit=${itemsPerPage}`;
     if (categoryId) {
       url += `${url.includes("?") ? "&" : "?"}category=${categoryId}`;
     }
@@ -32,7 +33,7 @@ export const Menu = () => {
     }
 
     try {
-      const response = await axios.get(url);
+      const response = await api.get(url);
       setProduct(response?.data);
     } catch (err) {
       console.error("Error fetching products:", err);
@@ -41,7 +42,7 @@ export const Menu = () => {
 
   const getCarts = async () => {
     try {
-      const response = await axios.get("http://localhost:2000/carts/1"); // CHANGE THE ID LATER
+      const response = await api.get("/carts/1"); // CHANGE THE ID LATER
       setCart(response.data);
     } catch (err) {
       console.log(err);

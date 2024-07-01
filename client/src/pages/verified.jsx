@@ -21,8 +21,8 @@
 //     try {
 //       setLoading(true);
 
-//       const response = await axios.patch(
-//         `http://localhost:2000/cashier/verified/${params.id}`,
+//       const response = await api.patch(
+//         `/cashier/verified/${params.id}`,
 //         {},
 //         {
 //           headers: {
@@ -82,6 +82,3 @@
 // }
 
 // export default Verify;
-
-
-   

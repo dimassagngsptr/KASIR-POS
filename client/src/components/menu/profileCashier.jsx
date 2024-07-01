@@ -1,19 +1,20 @@
-import { FaUserCircle } from 'react-icons/fa';
-import { Box, Text, Button } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { FaUserCircle } from "react-icons/fa";
+import { Box, Text, Button } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { api } from "../../configs/api";
 
 export const CashierProfile = () => {
-  const tokenCashier = localStorage.getItem('tokenCashier');
+  const tokenCashier = localStorage.getItem("tokenCashier");
   const [cashierData, setCashierData] = useState(null);
 
   const fetchData = async () => {
     try {
       if (!tokenCashier) {
-        throw new Error('Token Cashier tidak ditemukan.');
+        throw new Error("Token Cashier tidak ditemukan.");
       }
 
-      const response = await axios.get('http://localhost:2000/cashier/keep-login', {
+      const response = await api.get("/cashier/keep-login", {
         headers: {
           Authorization: `Bearer ${tokenCashier}`,
         },
@@ -21,7 +22,7 @@ export const CashierProfile = () => {
 
       setCashierData(response.data);
     } catch (err) {
-      console.error('Error fetching cashier data:', err.message);
+      console.error("Error fetching cashier data:", err.message);
     }
   };
 
@@ -29,7 +30,7 @@ export const CashierProfile = () => {
     fetchData();
   }, [tokenCashier]);
 
-return (
+  return (
     <Box
       fontFamily="Montserrat, sans-serif"
       userSelect="none"
@@ -46,8 +47,8 @@ return (
           size="150px"
           fontSize="2xl"
           cursor="pointer"
-          color='gray'
-          style={{ margin: 'auto' }}
+          color="gray"
+          style={{ margin: "auto" }}
         />
       </Box>
       <Text fontSize="25px" fontWeight="bold" margin="27px 0 0 0">
@@ -73,7 +74,4 @@ return (
       </Button>
     </Box>
   );
-  
 };
-
-

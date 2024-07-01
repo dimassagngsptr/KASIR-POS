@@ -15,6 +15,7 @@ import UserProfile from "./components/dashboard-admin/profileAdmin";
 import axios from "axios";
 import { RegisterPage } from "./pages/RegisterPages";
 import { CashierProfile } from "./components/menu/profileCashier";
+import { api } from "./configs/api";
 // import Verify from "./pages/verified";
 
 const router = createBrowserRouter([
@@ -39,8 +40,8 @@ function App() {
 
   const getAllCategories = async () => {
     try {
-      const categories = await axios.get(
-        `http://localhost:2000/categories?name=`
+      const categories = await api.get(
+        `/categories?name=`
       );
       dispatch(categoryData(categories.data));
     } catch (error) {
@@ -50,8 +51,8 @@ function App() {
 
   const getAllSubCategories = async () => {
     try {
-      const subCategories = await axios.get(
-        `http://localhost:2000/subcategories?name=`
+      const subCategories = await api.get(
+        `/subcategories?name=`
       );
       dispatch(subCategoryData(subCategories.data));
       console.log(subCategories);
@@ -62,8 +63,8 @@ function App() {
 
   const keepLogin = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:2000/admin/keep-login`,
+      const response = await api.get(
+        `/admin/keep-login`,
         {
           headers: {
             Authorization: `Bearer ${tokenAdmin}`,
@@ -78,8 +79,8 @@ function App() {
 
   const keepLoginCashier = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:2000/cashier/keep-login`,
+      const response = await api.get(
+        `/cashier/keep-login`,
         {
           headers: {
             Authorization: `Bearer ${tokenCashier}`,

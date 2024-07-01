@@ -6,6 +6,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../configs/api";
 
 const sidebarItems = [
   { text: "Home", icons: <GoHome size="25" /> },
@@ -25,7 +26,7 @@ function Sidebar() {
           throw new Error("Token Cashier tidak ditemukan.");
         }
 
-        const response = await axios.get("http://localhost:2000/cashier/keep-login", {
+        const response = await api.get("/cashier/keep-login", {
           headers: {
             Authorization: `Bearer ${tokenCashier}`,
           },
@@ -42,12 +43,11 @@ function Sidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("tokenCashier");
-    navigate('/');
+    navigate("/");
   };
   const handleProfileClick = () => {
-    
     navigate("/profile-cashier");
- };
+  };
 
   return (
     <Flex
@@ -65,9 +65,9 @@ function Sidebar() {
           letterSpacing="tighter"
           color="orange"
         >
-          LO
+          KA
           <Text as={"span"} color="black">
-            GO
+            SIR
           </Text>
         </Text>
         <Flex flexDirection="column" gap="30" alignItems="center">
@@ -104,7 +104,7 @@ function Sidebar() {
           _hover={{ bgColor: "orange" }}
         >
           <Text>
-            <FaUserCircle size="35"  onClick={handleProfileClick}/>
+            <FaUserCircle size="35" onClick={handleProfileClick} />
           </Text>
           <Text
             display={{ base: "none", md: "block" }}
@@ -136,4 +136,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-

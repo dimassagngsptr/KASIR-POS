@@ -16,8 +16,8 @@ import { Tables } from "./Tables";
 import { CiSearch } from "react-icons/ci";
 import { useEffect, useRef, useState } from "react";
 import { Form, Formik } from "formik";
-import axios from "axios";
 import { FormCategory } from "./FormCategory";
+import { api } from "../../configs/api";
 export const AddCategory = ({ handleEdit, valueId }) => {
   const [getCategory, setGetCategory] = useState([]);
   const [searchCategory, setSearchCategory] = useState("");
@@ -31,7 +31,7 @@ export const AddCategory = ({ handleEdit, valueId }) => {
   const tokenAdmin = localStorage.getItem("tokenAdmin");
   const deletedCategory = async () => {
     try {
-      await axios.patch(`http://localhost:2000/categories/delete/${valueId}`);
+      await api.patch(`/categories/delete/${valueId}`);
       findCategories();
       toast({
         title: "Success",
@@ -48,10 +48,7 @@ export const AddCategory = ({ handleEdit, valueId }) => {
   const editCategory = async (editValues) => {
     editValues.id = valueId;
     try {
-      await axios.patch(
-        `http://localhost:2000/categories/${valueId}`,
-        editValues
-      );
+      await api.patch(`/categories/${valueId}`, editValues);
       findCategories();
       toast({
         title: "Success",
@@ -75,9 +72,7 @@ export const AddCategory = ({ handleEdit, valueId }) => {
   };
   const findCategories = async () => {
     try {
-      const categories = await axios.get(
-        `http://localhost:2000/categories?name=${searchCategory}`
-      );
+      const categories = await api.get(`/categories?name=${searchCategory}`);
       const allCategory = categories.data.filter(
         (category) => category.isDeleted === false
       );
@@ -93,7 +88,7 @@ export const AddCategory = ({ handleEdit, valueId }) => {
   });
   const handleSubmit = async (data) => {
     try {
-      await axios.post("http://localhost:2000/categories", data, {
+      await api.post("/categories", data, {
         headers: { Authorization: `Bearer ${tokenAdmin}` },
       });
       toast({

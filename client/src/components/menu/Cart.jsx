@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CartBottom from "./CartBottom";
 import CartItem from "./CartItem";
+import { api } from "../../configs/api";
 
 function Cart({ getProducts, getCarts, cart }) {
   const [payment, setPayment] = useState("");
@@ -33,10 +34,7 @@ function Cart({ getProducts, getCarts, cart }) {
 
   const handleSubmit = async () => {
     const data = { PaymentMethodId: payment, CashierId: 1 };
-    const transaction = await axios.post(
-      "http://localhost:2000/transactions",
-      data
-    );
+    const transaction = await api.post("/transactions", data);
     const transactionId = transaction?.data?.data?.id;
     setTransactionId(transactionId);
 
@@ -55,7 +53,7 @@ function Cart({ getProducts, getCarts, cart }) {
 
   const handleIncrement = async (id) => {
     try {
-      await axios.patch(`http://localhost:2000/carts/increment/${id}`);
+      await api.patch(`/carts/increment/${id}`);
       getCarts();
       getProducts();
     } catch (err) {
@@ -65,7 +63,7 @@ function Cart({ getProducts, getCarts, cart }) {
 
   const handleDecrement = async (id) => {
     try {
-      await axios.patch(`http://localhost:2000/carts/decrement/${id}`);
+      await api.patch(`/carts/decrement/${id}`);
       getCarts();
       getProducts();
     } catch (err) {
@@ -75,7 +73,7 @@ function Cart({ getProducts, getCarts, cart }) {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:2000/carts/${id}`);
+      await api.delete(`/carts/${id}`);
       getCarts();
       getProducts();
     } catch (err) {
