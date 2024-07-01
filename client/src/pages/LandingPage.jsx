@@ -1,8 +1,8 @@
 import { Flex, VStack, Text } from "@chakra-ui/react";
 // import { Login } from "../components/landingpage/Login";
-import { TabsLogin } from "../components/landingpage/Tabs.Jsx";
 import { AiOutlineLogin } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { TabsLogin } from "../components/landingpage/Tabs";
 
 export const LandingPage = () => {
   return (
