@@ -31,7 +31,8 @@
 
 ## About The Project
 
-Cashier App is a Point of Sales application with a variety of features ranging from admin management to management dashboards, equipped with chart features for product sales analysis needs
+Kasir App is a Point of Sales (POS) application designed to streamline sales processes in retail stores or restaurants. The application encompasses features such as product management, transaction processing, inventory tracking, and sales report generation. Utilizing React.js for the frontend and Express.js for the backend, this application provides a responsive user interface and robust server performance.To manage and store data, the application employs MySQL as its database. The use of Docker Compose facilitates the setup and management of the MySQL database, allowing developers to easily configure a consistent and flexible development environment.
+
 
 
 ### Built With
