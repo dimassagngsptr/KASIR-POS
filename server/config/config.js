@@ -16,13 +16,10 @@ module.exports = {
     dialect: "postgres",
   },
   production: {
-    use_env_variable: process.env.DATABASE_URL, // Heroku style environment variable
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
     dialect: "postgres",
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false, // Important! You should use this for Heroku
-      },
-    },
   },
 };
