@@ -175,11 +175,11 @@ To use this project, follow the instructions below for understanding the project
   </tr>
   <tr>
     <td>Sub Category Products</td>
-    <!-- <td></td> -->
+    <td>Print Bils to PDF</td>
   </tr>
   <tr>
     <td><img src="/client/public/docs/screenshots/register-page 1 (13).png" /></td>
-    <!-- <td><img src="https://github.com/dimassagngsptr/blanja-kelompok-1/blob/df3f76ec9cd4de47e30c78fabc5b9f54fcf01a98/apps/web/src/assets/screenshot/checkout.png" /></td> -->
+    <td><img src="/client/public/docs/screenshots/print-pdf.png" /></td>
   </tr>
   <!-- <tr>
     <td>Profile Customer</td>
