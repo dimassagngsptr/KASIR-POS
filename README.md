@@ -301,16 +301,15 @@ To use this project, follow the instructions below for understanding the project
 
 Access the API documentation for the **Kasir** project. Use this documentation to test endpoints and understand the structure and functionality of the available APIs in this project.
 
-[![Blanja Innovation API Postman Documentation](https://run.pstmn.io/button.svg)]()
+[![Blanja Innovation API Postman Documentation](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/29288801/2sA3duFsdJ)
 
 
 ### Project Related
 
 - [`Front-End Project Repository Link`](https://github.com/dimassagngsptr/KASIR-POS/tree/main/client)
 
-- [`Front-End Demonstration Link`]()
+- [`Front-End Demonstration Link`](https://kasir-wheat.vercel.app/)
 
-- [`Back-End Demonstration Link`]()
 
 
 ## Contributing
