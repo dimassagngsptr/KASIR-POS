@@ -310,6 +310,8 @@ Access the API documentation for the **Kasir** project. Use this documentation t
 
 - [`Front-End Demonstration Link`](https://kasir-wheat.vercel.app/)
 
+- [`Back-End Demonstration Link`](https://kasir-pos-be.vercel.app/api)
+
 
 
 ## Contributing
