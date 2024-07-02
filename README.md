@@ -9,7 +9,7 @@
      Kasir Implementation
     <br />
     <br />
-    <a href="" target="_blank">View Website Demo</a>
+    <a href="https://kasir-wheat.vercel.app/" target="_blank">View Website Demo</a>
     ·
      <a href="https://github.com/dimassagngsptr/KASIR-POS/tree/main/server" target="_blank">View Back-End Repo</a>
   </p>
@@ -37,7 +37,7 @@ Kasir App is a Point of Sales (POS) application designed to streamline sales pro
 
 ### Built With
 
-[React.Js](https://go.dev/)
+[React.Js](https://react.dev/)
 
 [Redux Toolkit](redux-toolkit.js.org)
 
@@ -94,9 +94,15 @@ Ensure you have the following installed on your local machine:
      ```sh
      Database
 
-     DB_PASSWORD =root_password;
+     DB_PASSWORD = your_password;
      
-     DB_DATABASE =database_name;
+     DB_DATABASE = your_database;
+
+     DB_PORT = database_port
+
+     DB_USERNAME = database_username
+
+     DB_HOST = database_host
 
      Nodemailer
      
@@ -294,9 +300,6 @@ To use this project, follow the instructions below for understanding the project
  ```
 
 
-### ERD
-
-
 ### Documentation
 
 Access the API documentation for the **Kasir** project. Use this documentation to test endpoints and understand the structure and functionality of the available APIs in this project.
@@ -336,7 +339,6 @@ linkedin : https://www.linkedin.com/in/dimasagengsaputro/
 
 Feel free to check it out:
 
-- [Img Shields](https://shields.io)
 - [Choose an Open Source License](https://choosealicense.com/)
 - [GitHub Pages](https://pages.github.com/)
 
